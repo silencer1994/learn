@@ -1,9 +1,7 @@
 package mycode.day23;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created by ls on 17-7-10.
@@ -29,6 +27,37 @@ public class Task_04 {
             System.out.println(i);
         }
 
+        writeNum(result);
+    }
+
+    private static void writeNum(int[] result) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i : result) {
+            list.add(i);
+        }
+        OutputStreamWriter ous = null;
+        File file = new File("/home/ls/number.txt");
+        if(!file.exists()){
+            try {
+                boolean ok = file.createNewFile();
+                System.out.println("创建"+file.getAbsolutePath()+"  "+ok);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            ous = new FileWriter(file);
+            ous.write(list.toString());
+            ous.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                ous.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static int[] wipe10(int[] nums) {
